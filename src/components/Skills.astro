@@ -64,21 +64,21 @@ const remainingSkills = skills.slice(8);
     </p>
   </div>
   
-  <div class="grid grid-cols-2 gap-2 px-2 md:px-10" id="initial-skills">
+  <div class="grid grid-cols-2 gap-2 md:px-10" id="initial-skills">
     {initialSkills.map(skill => (
       <SkillContainer title={skill.title} description={skill.description}>
-        <skill.icon class="size-9" />
+        <skill.icon class="size-7 flex-shrink-0 md:size-9" />
       </SkillContainer>
     ))}
   </div>
   
   <div 
-    class="grid grid-cols-2 gap-2 px-5 overflow-hidden transition-all duration-700 ease-in-out max-h-0 opacity-0" 
+    class="grid grid-cols-2 gap-2 overflow-hidden transition-all duration-700 ease-in-out max-h-0 opacity-0 md:px-10" 
     id="remaining-skills"
   >
     {remainingSkills.map(skill => (
       <SkillContainer title={skill.title} description={skill.description}>
-        <skill.icon class="size-9" />
+        <skill.icon class="size-7 flex-shrink-0 md:size-9" />
       </SkillContainer>
     ))}
   </div>
