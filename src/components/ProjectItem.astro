@@ -2,7 +2,7 @@
 import GitHub from "../icons/Skills/GitHub.astro";
 import Link from "../icons/Link.astro";
 import LinkButton from "./LinkButton.astro";
-import { Image } from "astro:assets";
+import type { ImageMetadata } from "astro";
 
 type Tag = {
   name: string;
@@ -11,12 +11,16 @@ type Tag = {
 };
 
 const { image, title, description, tags, github, link } = Astro.props as {
-  image: ImageMetadata;
+  image: string | ImageMetadata; 
   title: string;
   description: string;
   tags: Tag[];
   github?: string;
   link?: string;
+};
+
+const getImageSrc = (img: string | ImageMetadata) => {
+  return typeof img === 'string' ? img : img.src;
 };
 ---
 
@@ -27,9 +31,9 @@ const { image, title, description, tags, github, link } = Astro.props as {
     <div
       class="relative h-full flex flex-col items-center gap-8 transition duration-400 ease-in-out transform shadow-xl overflow-clip rounded-xl sm:rounded-xl md:group-hover:-translate-y-1 md:group-hover:shadow-2xl lg:border lg:border-gray-800 lg:hover:border-gray-700 lg:hover:bg-gray-800/50"
     >
-      <Image
-        src={image}
-        alt="Recién llegado vs 5 años en Nueva Zelanda"
+      <img
+        src={getImageSrc(image)}
+        alt="Project Image"
         class="object-cover object-top w-full h-56 transition duration-500 sm:h-full md:scale-110 md:grayscale-100 md:group-hover:grayscale-0 md:group-hover:scale-105"
         loading="lazy"
       />
