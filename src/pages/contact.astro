@@ -2,6 +2,7 @@
 import Layout from "../layouts/Layout.astro";
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
+import Send from "../icons/Send.astro";
 
 import Logo from "../assets/1.svg";
 
@@ -16,31 +17,39 @@ import Logo from "../assets/1.svg";
     <Logo />
   </div>
   <Header />
-  <main class="max-lg:px-18">
+  <main class="max-sm:px-8 max-lg:px-14 lg:w-[800px]">
     <section>
-      <div class="py-8">
+      <div class="py-4">
         <h2
-          class="mb-4 text-4xl tracking-tight font-bold text-center text-neutral-900 dark:text-white"
+          class="mb-4 text-4xl tracking-tight font-bold text-center text-white"
         >
           Contact Us
         </h2>
         <p
-          class="mb-8 lg:mb-16 font-light text-center text-neutral-500 dark:text-neutral-400 sm:text-xl"
+          class="mb-8 lg:mb-14 font-light text-center text-neutral-400 sm:text-lg"
         >
-          Got a technical issue? Want to send feedback about a beta feature?
-          Need details about our Business plan? Let us know.
+          If you need additional details, have any recommendations, or just want
+          to chat, feel free to send me a message. I'm always open to any kinds
+          of opportunities, projects or suggestions. I'll get back to you as
+          soon as possible.
         </p>
-        <form action="#" class="space-y-8">
+        <form
+          action="https://formspree.io/f/xldlqrqd"
+          method="POST"
+          id="my-form"
+          class="space-y-8"
+        >
           <div>
             <label
               for="email"
-              class="block mb-2 text-sm font-medium text-neutral-900 dark:text-neutral-300"
+              class="block mb-2 text-sm font-medium text-neutral-100"
               >Your email</label
             >
             <input
               type="email"
               id="email"
-              class="shadow-sm bg-neutral-50 border border-neutral-300 text-neutral-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-neutral-800 dark:border-neutral-600 dark:placeholder-neutral-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500 dark:shadow-sm-light"
+              name="email"
+              class="shadow-sm-light bg-neutral-800 border border-neutral-600 text-white text-sm rounded-lg block w-full p-2.5 placeholder-neutral-400"
               placeholder="name@mail.com"
               required
             />
@@ -48,13 +57,14 @@ import Logo from "../assets/1.svg";
           <div>
             <label
               for="subject"
-              class="block mb-2 text-sm font-medium text-neutral-900 dark:text-neutral-300"
+              class="block mb-2 text-sm font-medium text-neutral-100"
               >Subject</label
             >
             <input
               type="text"
               id="subject"
-              class="block p-3 w-full text-sm text-neutral-900 bg-neutral-50 rounded-lg border border-neutral-300 shadow-sm focus:ring-primary-500 focus:border-primary-500 dark:bg-neutral-800 dark:border-neutral-600 dark:placeholder-neutral-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500 dark:shadow-sm-light"
+              name="subject"
+              class="shadow-sm-light bg-neutral-800 border border-neutral-600 text-white text-sm rounded-lg block w-full p-2.5 placeholder-neutral-400"
               placeholder="Let us know how we can help you"
               required
             />
@@ -62,23 +72,102 @@ import Logo from "../assets/1.svg";
           <div class="sm:col-span-2">
             <label
               for="message"
-              class="block mb-2 text-sm font-medium text-neutral-900 dark:text-neutral-400"
+              class="block mb-2 text-sm font-medium text-neutral-100"
               >Your message</label
             >
             <textarea
               id="message"
+              name="message"
               rows="6"
-              class="block p-2.5 w-full text-sm text-neutral-900 bg-neutral-50 rounded-lg shadow-sm border border-neutral-300 focus:ring-primary-500 focus:border-primary-500 dark:bg-neutral-800 dark:border-neutral-600 dark:placeholder-neutral-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+              class="shadow-sm-light bg-neutral-800 border border-neutral-600 text-white text-sm rounded-lg block w-full p-2.5 placeholder-neutral-400"
               placeholder="Leave a comment..."></textarea>
           </div>
           <button
             type="submit"
-            class="py-3 px-5 text-sm font-medium border text-center text-white rounded-lg bg-primary-700 sm:w-fit hover:bg-primary-800 focus:ring-4 focus:outline-none focus:ring-primary-300 dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
-            >Send message</button
+            id="submit-button"
+            class="flex items-center justify-center group mx-auto gap-2 font-medium w-50 h-11 cursor-pointer bg-gradient-to-t from-[#1f4281] to-[#1f8ce6] border border-[#209dfc] text-white text-sm rounded-lg md:from-[#1a2855] md:to-[#145981] md:hover:from-[#1f4281] md:hover:to-[#1f8ce6] hover:w-65 transition-all"
+            >Send message<Send
+              class="group-hover:rotate-30 transition-all"
+            /></button
           >
         </form>
       </div>
+      <div id="my-form-status" class="mt-4 text-center text-neutral-400"></div>
     </section>
   </main>
   <Footer />
 </Layout>
+
+<script>
+  const form = document.getElementById("my-form") as HTMLFormElement | null;
+  const submitButton = document.getElementById(
+    "submit-button"
+  ) as HTMLButtonElement | null;
+  const sendingMessage = ["Sending.", "Sending..", "Sending..."];
+
+  async function handleSubmit(event: Event) {
+    event.preventDefault();
+    const status = document.getElementById(
+      "my-form-status"
+    ) as HTMLElement | null;
+    const data = new FormData(event.target as HTMLFormElement);
+    submitButton?.setAttribute("disabled", "true");
+    submitButton?.classList.remove("hover:w-65");
+    let i = 0;
+    const interval = setInterval(() => {
+      submitButton!.innerText = sendingMessage[i++ % sendingMessage.length];
+    }, 200);
+    if (!form) return;
+    await new Promise((resolve) => setTimeout(resolve, 1500));
+    fetch((event.target as HTMLFormElement).action, {
+      method: (form as HTMLFormElement).method,
+      body: data,
+      headers: { Accept: "application/json" },
+    })
+      .then((response) => {
+        clearInterval(interval);
+        submitButton!.innerHTML = `Send message <svg
+          class="group-hover:rotate-30 transition-all"
+          xmlns="http://www.w3.org/2000/svg"
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          class="icon icon-tabler icons-tabler-outline icon-tabler-brand-telegram"
+          ><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><path
+            d="M15 10l-4 4l6 6l4 -16l-18 7l4 2l2 6l3 -4"></path></svg
+        >`;
+        submitButton?.removeAttribute("disabled");
+        if (response.ok) {
+          if (status) status.innerHTML = "Thanks for your message!";
+          form.reset();
+          submitButton?.removeAttribute("disabled");
+          submitButton?.classList.add("hover:w-65");
+        } else {
+          response.json().then((data: { errors?: { message: string }[] }) => {
+            if (data.errors && status) {
+              status.innerHTML = data.errors
+                .map((error: { message: string }) => error.message)
+                .join(", ");
+            } else if (status) {
+              status.innerHTML =
+                "Oops! There was a problem submitting your message";
+            }
+          });
+          submitButton?.removeAttribute("disabled");
+          submitButton?.classList.add("hover:w-65");
+        }
+      })
+      .catch(() => {
+        if (status)
+          status.innerHTML = "Oops! There was a problem submitting your form";
+      });
+  }
+  if (form) {
+    form.addEventListener("submit", handleSubmit);
+  }
+</script>

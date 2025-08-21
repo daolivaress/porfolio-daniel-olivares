@@ -34,11 +34,11 @@ const experience = [
 
 <section id="trayectory"  class="scroll-m-20">
   <div class="text-center mb-10">
-    <h2 class="font-semibold text-[40px] max-md:leading-11 md:text-5xl">
+    <h2 class="font-semibold text-[44px] max-md:leading-11 md:text-6xl">
       My Trajectory <br />
       <span class="text-blue-600">As A Professional</span>
     </h2>
-    <p class="mt-1 mb-4 text-[#95999d]">
+    <p class="mt-1.5 mb-4 text-[#95999d]">
       From the beginning to the presente making a difference in the digital
       world
     </p>
@@ -48,7 +48,7 @@ const experience = [
       <h3 class="font-semibold text-xl mb-3 flex items-center gap-3">
         <Briefcase class="size-8" /> Experience
       </h3>
-      <ol class="relative border-s border-gray-200 dark:border-gray-700">
+      <ol class="relative border-s border-gray-700">
         {experience.map((item) => <ExperienceItem key={item.date} {...item} />)}
       </ol>
     </div>
@@ -56,7 +56,7 @@ const experience = [
       <h3 class="font-semibold text-xl mb-3 flex items-center gap-3">
         <SchoolHat class="size-8" /> Education
       </h3>
-      <ol class="relative border-s border-gray-200 dark:border-gray-700">
+      <ol class="relative border-s border-gray-700">
         {education.map((item) => <EducationItem key={item.date} {...item} />)}
       </ol>
     </div>
