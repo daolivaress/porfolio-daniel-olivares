@@ -1,0 +1,12 @@
+<div class="flex items-center transition-all hover:scale-110">
+  <span class="relative inline-flex overflow-hidden rounded-full p-[1px]">
+    <span
+      class={Astro.props.class}
+    ></span>
+    <div
+      class=`inline-flex items-center gap-1 justify-center w-full px-4 py-1 rounded-full cursor-pointer bg-neutral-900 text-[#95999d] transition-all text-xs backdrop-blur-3xl whitespace-nowrap ${Astro.props.hover} md:text-sm`
+    >
+      <slot />
+    </div>
+  </span>
+</div>

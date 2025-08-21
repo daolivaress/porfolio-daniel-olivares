@@ -1,0 +1,64 @@
+---
+import EducationItem from "./EducationItem.astro";
+import SchoolHat from "../icons/SchoolHat.astro";
+import Briefcase from "../icons/Briefcase.astro";
+import ExperienceItem from "./ExperienceItem.astro";
+
+const education = [
+  {
+    date: "August 2025 - October 2025",
+    title: "Full Stack Web Development Diploma",
+    school: "U de Cataluña",
+    description:
+      "Specialized training in web application development using technologies like HTML, CSS, JavaScript, and modern frameworks.",
+  },
+  {
+    date: "January 2020 - September 2025",
+    title: "Professional in Systems and Computer Engineering",
+    school: "Universidad del Norte",
+    description:
+      "Academic training in the field of systems and computer engineering, with a focus on software development and technological project management.",
+  },
+];
+
+const experience = [
+  {
+    date: "February 2025 - August 2025",
+    title: "Money Desk Intern",
+    company: "Davivienda",
+    description:
+      "Developed an application that centralizes relevant information for Davivienda's clients. Through the automation and optimization of various tasks and controls using Google Apps Script, a significant reduction in delivery times was achieved, thus improving operational efficiency.",
+  },
+];
+---
+
+<section id="trayectory"  class="scroll-m-20">
+  <div class="text-center mb-10">
+    <h2 class="font-semibold text-[40px] max-md:leading-11 md:text-5xl">
+      My Trajectory <br />
+      <span class="text-blue-600">As A Professional</span>
+    </h2>
+    <p class="mt-1 mb-4 text-[#95999d]">
+      From the beginning to the presente making a difference in the digital
+      world
+    </p>
+  </div>
+  <div class="lg:grid lg:grid-cols-2">
+    <div>
+      <h3 class="font-semibold text-xl mb-3 flex items-center gap-3">
+        <Briefcase class="size-8" /> Experience
+      </h3>
+      <ol class="relative border-s border-gray-200 dark:border-gray-700">
+        {experience.map((item) => <ExperienceItem key={item.date} {...item} />)}
+      </ol>
+    </div>
+    <div>
+      <h3 class="font-semibold text-xl mb-3 flex items-center gap-3">
+        <SchoolHat class="size-8" /> Education
+      </h3>
+      <ol class="relative border-s border-gray-200 dark:border-gray-700">
+        {education.map((item) => <EducationItem key={item.date} {...item} />)}
+      </ol>
+    </div>
+  </div>
+</section>

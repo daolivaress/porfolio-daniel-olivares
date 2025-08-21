@@ -1,0 +1,160 @@
+---
+import Angular from "../icons/Skills/Angular.astro";
+import React from "../icons/Skills/React.astro";
+import AstroIcon from "../icons/Skills/AstroIcon.astro";
+import TailwindCSS from "../icons/Skills/Tailwind.astro";
+import NextJS from "../icons/Skills/NextJS.astro";
+import Django from "../icons/Skills/Django.astro";
+import Python from "../icons/Skills/Python.astro";
+import JavaScript from "../icons/Skills/JavaScript.astro";
+import TypeScript from "../icons/Skills/TypeScript.astro";
+import Java from "../icons/Skills/Java.astro";
+import NodeJS from "../icons/Skills/Node.astro";
+import Sass from "../icons/Skills/Sass.astro";
+import PostgreSQL from "../icons/Skills/PostgreSQL.astro";
+import MySQL from "../icons/Skills/MySQL.astro";
+import Firebase from "../icons/Skills/Firebase.astro";
+import Mongo from "../icons/Skills/Mongo.astro";
+import Jest from "../icons/Skills/Jest.astro";
+import Express from "../icons/Skills/Express.astro";
+import FastAPI from "../icons/Skills/FastAPI.astro";
+import Git from "../icons/Skills/Git.astro";
+import Vite from "../icons/Skills/Vite.astro";
+import Prisma from "../icons/Skills/Prisma.astro";
+
+import SkillContainer from "./SkillContainer.astro";
+
+// Definir las habilidades
+const skills = [
+  { title: "Angular", description: "Web Development Framework", icon: Angular },
+  { title: "React", description: "UI Component Library", icon: React },
+  { title: "Astro", description: "Web Development Framework", icon: AstroIcon },
+  { title: "Next.js", description: "Web Development Framework", icon: NextJS },
+  { title: "Python", description: "Programming Language", icon: Python },
+  { title: "JavaScript", description: "Programming Language", icon: JavaScript },
+  { title: "TypeScript", description: "Programming Language", icon: TypeScript },
+  { title: "Java", description: "Programming Language", icon: Java },
+  { title: "React Native", description: "Mobile Application Framework", icon: React },
+  { title: "Tailwind CSS", description: "Utility-First CSS Framework", icon: TailwindCSS },
+  { title: "Django", description: "Web Development Framework", icon: Django },
+  { title: "Node.js", description: "JavaScript Runtime", icon: NodeJS },
+  { title: "Sass", description: "CSS Preprocessor", icon: Sass },
+  { title: "PostgreSQL", description: "Relational Database", icon: PostgreSQL },
+  { title: "MySQL", description: "Relational Database", icon: MySQL },
+  { title: "Firebase", description: "Backend-as-a-Service", icon: Firebase },
+  { title: "MongoDB", description: "NoSQL Database", icon: Mongo },
+  { title: "Jest", description: "JavaScript Testing Framework", icon: Jest },
+  { title: "Express", description: "Web Application Framework", icon: Express },
+  { title: "FastAPI", description: "Web Framework for APIs", icon: FastAPI },
+  { title: "Git", description: "Version Control System", icon: Git },
+  { title: "Vite", description: "Build Tool", icon: Vite },
+  { title: "Prisma", description: "ORM for Node.js", icon: Prisma }
+];
+
+// Separar las habilidades en dos grupos
+const initialSkills = skills.slice(0, 8);
+const remainingSkills = skills.slice(8);
+---
+
+<section id="skills">
+  <div class="text-center mb-10">
+    <h2 class="font-semibold text-[40px] max-md:leading-11 md:text-5xl">My Skills</h2>
+    <p class="mt-1 mb-4 text-[#95999d]">
+      Tools I use that you should check out 🛠️
+    </p>
+  </div>
+  
+  <div class="grid grid-cols-2 gap-2 px-2 md:px-10" id="initial-skills">
+    {initialSkills.map(skill => (
+      <SkillContainer title={skill.title} description={skill.description}>
+        <skill.icon class="size-9" />
+      </SkillContainer>
+    ))}
+  </div>
+  
+  <div 
+    class="grid grid-cols-2 gap-2 px-5 overflow-hidden transition-all duration-700 ease-in-out max-h-0 opacity-0" 
+    id="remaining-skills"
+  >
+    {remainingSkills.map(skill => (
+      <SkillContainer title={skill.title} description={skill.description}>
+        <skill.icon class="size-9" />
+      </SkillContainer>
+    ))}
+  </div>
+  
+  <div class="text-center mt-6">
+    <button 
+      id="show-more-btn" 
+      class="w-full hover:font-medium hover:bg-[rgba(28,28,28,0.3)] text-white cursor-pointer py-2 rounded-b-lg transition-all flex items-center justify-center"
+    >
+      <p>Show More Skills</p>
+      <svg id="chevron-icon" class="size-5 ml-2 transform transition-all duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+      </svg>
+    </button>
+  </div>
+</section>
+
+<script>
+  // Script para manejar la funcionalidad de mostrar/ocultar con animación
+  document.addEventListener('DOMContentLoaded', () => {
+    const showMoreBtn = document.getElementById('show-more-btn');
+    const remainingSkills = document.getElementById('remaining-skills');
+    const chevronIcon = document.getElementById('chevron-icon');
+    let isExpanded = false;
+    
+    showMoreBtn?.addEventListener('click', () => {
+      isExpanded = !isExpanded;
+      
+      if (isExpanded) {
+        // Expandir con animación
+        remainingSkills?.classList.remove('max-h-0', 'opacity-0');
+        remainingSkills?.classList.add('max-h-[1000px]', 'opacity-100', 'mt-4');
+        const spanEl = showMoreBtn.querySelector('span');
+        if (spanEl) spanEl.textContent = 'Show Less';
+        chevronIcon?.classList.add('rotate-180');
+      } else {
+        // Contraer con animación
+        remainingSkills?.classList.remove('max-h-[1000px]', 'opacity-100', 'mt-4');
+        remainingSkills?.classList.add('max-h-0', 'opacity-0');
+        const spanEl = showMoreBtn.querySelector('span');
+        if (spanEl) spanEl.textContent = 'Show More Skills';
+        chevronIcon?.classList.remove('rotate-180');
+      }
+    });
+  });
+</script>
+
+<style>
+  /* Transición suave para todos los elementos */
+  #remaining-skills {
+    transition: max-height 0.7s ease-in-out, opacity 0.5s ease-in-out, margin-top 0.3s ease-in-out;
+  }
+  
+  /* Estilos para los elementos de habilidad con animación de entrada */
+  #remaining-skills .skill-item {
+    opacity: 0;
+    transform: translateY(10px);
+    transition: opacity 0.4s ease, transform 0.4s ease;
+  }
+  
+  #remaining-skills.max-h-\[1000px\] .skill-item {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  
+  /* Retraso escalonado para la animación de cada elemento */
+  #remaining-skills.max-h-\[1000px\] .skill-item:nth-child(1) { transition-delay: 0.05s; }
+  #remaining-skills.max-h-\[1000px\] .skill-item:nth-child(2) { transition-delay: 0.1s; }
+  #remaining-skills.max-h-\[1000px\] .skill-item:nth-child(3) { transition-delay: 0.15s; }
+  #remaining-skills.max-h-\[1000px\] .skill-item:nth-child(4) { transition-delay: 0.2s; }
+  #remaining-skills.max-h-\[1000px\] .skill-item:nth-child(5) { transition-delay: 0.25s; }
+  #remaining-skills.max-h-\[1000px\] .skill-item:nth-child(6) { transition-delay: 0.3s; }
+  #remaining-skills.max-h-\[1000px\] .skill-item:nth-child(7) { transition-delay: 0.35s; }
+  #remaining-skills.max-h-\[1000px\] .skill-item:nth-child(8) { transition-delay: 0.4s; }
+  #remaining-skills.max-h-\[1000px\] .skill-item:nth-child(9) { transition-delay: 0.45s; }
+  #remaining-skills.max-h-\[1000px\] .skill-item:nth-child(10) { transition-delay: 0.5s; }
+  #remaining-skills.max-h-\[1000px\] .skill-item:nth-child(11) { transition-delay: 0.55s; }
+  #remaining-skills.max-h-\[1000px\] .skill-item:nth-child(12) { transition-delay: 0.6s; }
+</style>

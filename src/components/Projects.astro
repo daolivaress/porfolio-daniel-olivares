@@ -1,0 +1,65 @@
+---
+import NextJS from "../icons/Skills/NextJS.astro";
+import Tailwind from "../icons/Skills/Tailwind.astro";
+import Html from "../icons/Skills/Html.astro";
+import Javascript from "../icons/Skills/JavaScript.astro";
+import ProjectItem from "./ProjectItem.astro";
+
+const TAGS = {
+  NEXT: {
+    name: "Next.js",
+    class: "bg-black text-white",
+    icon: NextJS,
+  },
+  TAILWIND: {
+    name: "Tailwind CSS",
+    class: "bg-[#003159]/40 text-white",
+    icon: Tailwind,
+  },
+  HTML: {
+    name: "HTML",
+    class: "bg-[#e34f26]/40 text-white",
+    icon: Html,
+  },
+  JAVASCRIPT: {
+    name: "JavaScript",
+    class: "bg-[#f0db4f]/40 text-white",
+    icon: Javascript,
+  },
+};
+const PROJECTS = [
+  {
+    title: "To Do App - An application to manage tasks",
+    description:
+      "A web application to manage daily tasks, allowing users to create, edit, and delete tasks.",
+    link: "https://fast-tasklist.netlify.app/",
+    github: "https://github.com/daolivaress/ToDo-List",
+    image: "src/assets/todo-app.webp",
+    tags: [TAGS.HTML, TAGS.TAILWIND, TAGS.JAVASCRIPT],
+  },
+];
+---
+
+<section id="projects">
+  <div class="text-center mb-10">
+    <h2 class="font-semibold text-[40px] max-md:leading-11 md:text-5xl">
+      Some Of My <span class="text-blue-600">Jobs</span>
+    </h2>
+    <p class="mt-1 mb-4 text-[#95999d]">
+      Each project has a different purpose and my job is to characterize it in a
+      real scenario
+    </p>
+  </div>
+  {
+    PROJECTS.map(({ image, title, description, tags, link, github }) => (
+      <ProjectItem
+        image={image}
+        title={title}
+        description={description}
+        tags={tags}
+        link={link}
+        github={github}
+      />
+    ))
+  }
+</section>

@@ -1,0 +1,132 @@
+---
+import OpenToWorkBadge from "./OpenToWorkBadge.astro";
+import Badge from "./Badge.astro";
+import LinkedIn from "../icons/LinkedIn.astro";
+import GitHub from "../icons/Skills/GitHub.astro";
+import Curriculum from "../icons/Curriculum.astro";
+---
+
+<section id="presentation" class="scroll-m-20">
+  <div>
+    <OpenToWorkBadge>Open to Work</OpenToWorkBadge>
+    <h1
+      class="text-[40px] leading-12 font-medium tracking-[-2px] my-5 md:text-5xl"
+    >
+      Hey, I'm Daniel 👋 <br /> I craft
+      <span
+        id="typing-text"
+        class="bg-gradient-to-r from-[#1447e6] to-[#3eabff] bg-clip-text text-transparent typing-animation"
+        data-features='["Scalable", "High-performance", "Efficient", "Super-fast", "Seamless", "Robust", "Reliable", "User-centric", "Cutting-edge"]'
+      ></span>
+      <br /> and intuitive web apps.
+    </h1>
+    <p class="my-5 max-sm:text-sm sm:w-[550px]">
+      Here you can learn more about who I am, what I do and discover a detailed
+      description of my knowledge and skills. I hope you enjoy browsing my work
+      as much as I enjoyed creating it.
+    </p>
+  </div>
+  <div>
+    <p class="mb-2 hover:text-blue-600 font-thin">
+      <span class="mr-2">/</span> Connect with me
+    </p>
+    <div class="flex items-center gap-4">
+      <a href="https://www.linkedin.com/in/daniel-andres-olivares-rodelo/" target="_blank">
+        <Badge
+          class="absolute inset-[-1000%] animate-[spin_2s_linear_infinite] bg-[conic-gradient(from_90deg_at_50%_50%,#0059ff_0%,#1b2a52_50%,#0059ff_100%)]"
+          hover="hover:text-[#0059ff]"
+          ><LinkedIn class="max-md:size-5.5" />LinkedIn</Badge
+        >
+      </a>
+      <a href="https://github.com/daolivaress" target="_blank">
+        <Badge
+          class="absolute inset-[-1000%] animate-[spin_2s_linear_infinite] bg-[conic-gradient(from_90deg_at_50%_50%,#a929cf_0%,#38164a_50%,#a929cf_100%)]"
+          hover="hover:text-[#a929cf]"
+          ><GitHub class="max-md:size-5.5" />GitHub</Badge
+        >
+      </a>
+      <a href="https://drive.google.com/file/d/1tRrU620-eQ6W2bfh3yq7jW7fv7K0DRnO/view?usp=sharing" target="_blank">
+        <Badge
+          class="absolute inset-[-1000%] animate-[spin_2s_linear_infinite] bg-[conic-gradient(from_90deg_at_50%_50%,#51E4B8_0%,#21554E_50%,#51E4B8_100%)]"
+          hover="hover:text-[#51E4B8]"
+          ><Curriculum class="max-md:size-5.5" /> Resume</Badge
+        >
+      </a>
+    </div>
+  </div>
+
+  <style>
+    /* Estilos para el cursor parpadeante */
+    .typing-animation::after {
+      content: "|";
+      animation: blink 1s step-end infinite;
+      color: #ffffff;
+      font-weight: 300;
+    }
+
+    @keyframes blink {
+      0%,
+      100% {
+        opacity: 1;
+      }
+      50% {
+        opacity: 0;
+      }
+    }
+  </style>
+
+  <script>
+    // Solo ejecutar en el cliente
+    if (typeof window !== "undefined") {
+      document.addEventListener("DOMContentLoaded", function () {
+        const typingElement = document.getElementById("typing-text");
+        const featuresAttr = typingElement?.getAttribute("data-features");
+        if (typingElement && featuresAttr) {
+          const features = JSON.parse(featuresAttr);
+          let currentFeatureIndex = 0;
+          let currentText = "";
+          let isDeleting = false;
+          let typingSpeed = 100;
+          let pauseTime = 2000; // Tiempo de pausa entre palabras
+
+          function type() {
+            const fullText = features[currentFeatureIndex];
+
+            if (isDeleting) {
+              // Eliminando texto
+              currentText = fullText.substring(0, currentText.length - 1);
+            } else {
+              // Escribiendo texto
+              currentText = fullText.substring(0, currentText.length + 1);
+            }
+
+            if (typingElement) {
+              typingElement.textContent = currentText;
+            }
+
+            let typeDelay = typingSpeed;
+
+            if (!isDeleting && currentText === fullText) {
+              // Pausa al final de la escritura
+              typeDelay = pauseTime;
+              isDeleting = true;
+            } else if (isDeleting && currentText === "") {
+              // Cambiar a la siguiente palabra
+              isDeleting = false;
+              currentFeatureIndex = (currentFeatureIndex + 1) % features.length;
+              typeDelay = 500;
+            } else if (isDeleting) {
+              // Velocidad al borrar (más rápida)
+              typeDelay = typingSpeed / 2;
+            }
+
+            setTimeout(type, typeDelay);
+          }
+
+          // Iniciar la animación después de un breve retraso
+          setTimeout(type, 1000);
+        }
+      });
+    }
+  </script>
+</section>
