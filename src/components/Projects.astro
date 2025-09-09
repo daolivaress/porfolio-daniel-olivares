@@ -5,6 +5,8 @@ import Html from "../icons/Skills/Html.astro";
 import Javascript from "../icons/Skills/JavaScript.astro";
 import ProjectItem from "./ProjectItem.astro";
 import todoImage from "../assets/projectImages/todo-app.webp";
+import ClickAndFixImage from "../assets/projectImages/clickandfix.webp";
+import AstroIcon from "../icons/Skills/AstroIcon.astro";
 
 
 const TAGS = {
@@ -28,6 +30,11 @@ const TAGS = {
     class: "bg-[#f0db4f]/40 text-white",
     icon: Javascript,
   },
+  ASTRO: {
+    name: "Astro",
+    class: "bg-[#ff5f01]/40 text-white",
+    icon: AstroIcon,
+  },
 };
 const PROJECTS = [
   {
@@ -38,6 +45,15 @@ const PROJECTS = [
     github: "https://github.com/daolivaress/ToDo-List",
     image: todoImage,
     tags: [TAGS.HTML, TAGS.TAILWIND, TAGS.JAVASCRIPT],
+  },
+  {
+    title: "Click&Fix - Landing Page",
+    description:
+      "A landing page for a fictional service called Click&Fix, showcasing its features and benefits.",
+    link: "https://clickandfix.vercel.app/",
+    github: "https://github.com/daolivaress/da-tech-solutions",
+    image: ClickAndFixImage,
+    tags: [TAGS.ASTRO, TAGS.TAILWIND, TAGS.JAVASCRIPT],
   },
 ];
 ---
@@ -52,7 +68,8 @@ const PROJECTS = [
       real scenario
     </p>
   </div>
-  {
+  <div class="flex flex-col gap-8">
+    {
     PROJECTS.map(({ image, title, description, tags, link, github }) => (
       <ProjectItem
         image={image}
@@ -64,4 +81,5 @@ const PROJECTS = [
       />
     ))
   }
+  </div>
 </section>
